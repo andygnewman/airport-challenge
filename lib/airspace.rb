@@ -16,7 +16,7 @@ class Airspace
     planes.delete(plane)
   end
 
-  def number_planes?
+  def number_planes
     planes.length
   end
 

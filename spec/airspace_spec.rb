@@ -7,7 +7,7 @@ describe Airspace do
 
   it 'should contain a plane when a plane is created' do
     airspace.accept(plane)
-    expect(airspace.number_planes?).to eq(1)
+    expect(airspace.number_planes).to eq(1)
   end
 
 end

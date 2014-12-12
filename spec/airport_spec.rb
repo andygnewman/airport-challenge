@@ -13,9 +13,9 @@ describe Airport do
       airport.accept(plane)
       airspace.release(plane)
       plane.land!
-      expect(airport.number_planes?).to eq(1)
+      expect(airport.number_planes).to eq(1)
       expect(plane).not_to be_flying
-      expect(airspace.number_planes?).to eq(0)
+      expect(airspace.number_planes).to eq(0)
     end
 
     it 'can launch a plane (take off)' do
@@ -24,30 +24,25 @@ describe Airport do
       airspace.accept(plane)
       plane.fly!
       airport.release(plane)
-      expect(airspace.number_planes?).to eq(1)
+      expect(airspace.number_planes).to eq(1)
       expect(plane).to be_flying
-      expect(airport.number_planes?).to eq(0)
+      expect(airport.number_planes).to eq(0)
     end
 
   end
+
+  context 'traffic control' do
+
+    it 'a plane cannot land if the airport is full' do
+      5.times{ airport.accept(Plane.new) }
+      expect(lambda { airport.accept(plane) }).to raise_error(RuntimeError, 'Plane cannot land: Airport Full')
+    end
+
+  end
+
 end
 
-# context 'taking off and landing' do
 
-#     it 'a plane can land' do
-
-#     end
-
-#     it 'a plane can take off' do
-
-#     end
-#   end
-
-#   context 'traffic control' do
-
-#     it 'a plane cannot land if the airport is full' do
-
-#     end
 
     # Include a weather condition using a module.
     # The weather must be random and only have two states "sunny" or "stormy".
