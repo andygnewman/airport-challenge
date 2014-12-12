@@ -9,18 +9,21 @@
 Responsibility | Collaborators
 ---------------|----------------
 Be Flown       | Holding Stack
-Be Landed      | Airport, Holding Stack
+Be Landed      | Airport, Airspace
+Take Off       | Airport, Airspace
 
-###Holding Stack
-Responsibility | Collaborators
----------------|----------------
-Fly Plane      | Plane
-Land Plane     | Plane, Airport
+###Airspace
+Responsibility          | Collaborators
+------------------------|----------------
+Fly Plane               | Plane
+Land Plane              | Plane, Airport
+Accept Plane on Take Off| Plane, Airport 
 
 ###Airport
 Responsibility | Collaborators
 ---------------|----------------
-Land Plane     | Plane, Holding Stack
+Land Plane     | Plane, Airspace
+Allow Take Off | Plane, Airspace
 Weather Status | Weather Station
 
 ###Weather Station
