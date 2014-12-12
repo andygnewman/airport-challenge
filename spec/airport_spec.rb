@@ -40,6 +40,18 @@ describe Airport do
 
   end
 
+  context 'weather conditions' do
+
+    it 'a plane cannot take off when there is a storm brewing' do
+      airport.accept(plane)
+      expect(lambda {airport.release(plane) }).to raise_error(RuntimeError, 'Plane cannot take off: Stormy Weather')
+    end
+
+    # it 'a plane cannot land in the middle of a storm' do
+
+    # end
+    end
+
 end
 
 
@@ -52,15 +64,6 @@ end
     # If the airport has a weather condition of stormy,
     # the plane can not land, and must not be in the airport
 
-#     context 'weather conditions' do
 
-#       it 'a plane cannot take off when there is a storm brewing' do
-
-#       end
-
-#       it 'a plane cannot land in the middle of a storm' do
-
-#       end
-#     end
 #   end
 # end

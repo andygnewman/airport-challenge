@@ -1,9 +1,13 @@
+require_relative 'weather_station'
+
 class Airport
 
-  def initialize
-    @planes = []
-    @capacity = 5
-  end
+  include WeatherStation
+
+    def initialize
+      @planes = []
+      @capacity = 5
+    end
 
   def planes
     @planes
@@ -23,6 +27,7 @@ class Airport
   end
 
   def release(plane)
+    raise "Plane cannot take off: Stormy Weather" if stormy_weather?
     planes.delete(plane)
   end
 
