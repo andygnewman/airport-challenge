@@ -2,27 +2,32 @@ require 'airport'
 
 describe Airport do
   
-  let(:airport) { Airport.new}
+  let(:airport_sunny) {Airport.new}
+  let(:airport_stormy) {Airport.new}
   let(:plane) {Plane.new}
   let(:airspace) {Airspace.new}
 
+
   context 'taking off and landing' do
 
+  
     it 'can land a plane' do
       airspace.accept(plane)
-      airport.land(plane, airspace)
-      expect(airport.number_planes).to eq(1)
+      allow(airport_sunny).to receive(:weather_condition).and_return(:sunny)
+      airport_sunny.land(plane, airspace)
+      expect(airport_sunny.number_planes).to eq(1)
       expect(plane).not_to be_flying
       expect(airspace.number_planes).to eq(0)
     end
 
     it 'can launch a plane (take off)' do
       plane.land!
-      airport.accept(plane)
-      airport.launch(plane, airspace)
+      airport_sunny.accept(plane)
+      allow(airport_sunny).to receive(:weather_condition).and_return(:sunny)
+      airport_sunny.launch(plane, airspace)
       expect(airspace.number_planes).to eq(1)
       expect(plane).to be_flying
-      expect(airport.number_planes).to eq(0)
+      expect(airport_sunny.number_planes).to eq(0)
     end
 
   end
@@ -30,32 +35,29 @@ describe Airport do
   context 'traffic control' do
 
     it 'a plane cannot land if the airport is full' do
-      5.times{ airport.accept(Plane.new) }
-      expect(lambda { airport.land(plane, airspace) }).to raise_error(RuntimeError, 'Plane cannot land: Airport Full')
+      5.times{ airport_sunny.accept(Plane.new) }
+      expect(lambda { airport_sunny.land(plane, airspace) }).to raise_error(RuntimeError, 'Plane cannot land: Airport Full')
     end
 
   end
 
   context 'weather conditions' do
 
-# This will require stubbing to stop the random return of the weather.
-
-#die = double('die')
-#die.stub(:roll).and_return(2)
-
-    let(:airport_dble) { double('airport_dble', :stormy_weather? => true)}
-
-    xit 'should not allow a plane to take off when there is stormy weather' do
-      allow(airport_dble).to receive(:take_off_weather_check)
-      airport_dble.stub(:take_off_weather_check).and_return(raise "Plane cannot take off: Stormy Weather")
-      expect(airport_dble).to be_stormy_weather
-      expect(lambda {airport_dble.take_off_weather_check}).to raise_error(RuntimeError, 'Plane cannot take off: Stormy Weather')
-      # the plane cannot take off and must remain in the airport
+    it 'should not allow a plane to take off when there is stormy weather' do
+      plane.land!
+      allow(airport_stormy).to receive(:weather_condition).and_return(:stormy)
+      airport_stormy.accept(plane)
+      expect(airport_stormy.number_planes).to eq(1)
+      expect(lambda {airport_stormy.launch(plane, airspace)}).to raise_error(RuntimeError, 'Cannot complete action: Stormy Weather')
+      expect(airport_stormy.number_planes).to eq(1)
     end
 
-    xit 'should not all a plane to land when there is stormy weather' do
-      pending
-      # the plane can not land, and must not be in the airport
+    it 'should not all a plane to land when there is stormy weather' do
+      airspace.accept(plane)
+      allow(airport_stormy).to receive(:weather_condition).and_return(:stormy)
+      expect(lambda {airport_stormy.land(plane, airspace)}).to raise_error(RuntimeError, 'Cannot complete action: Stormy Weather')
+      expect(airspace.number_planes).to eq(1)
+      expect(airport_stormy.number_planes).to eq (0)
     end
 
   end

@@ -16,5 +16,4 @@ module PlaneContainer
     planes.delete(plane)
   end
 
-
 end

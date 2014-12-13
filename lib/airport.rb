@@ -28,25 +28,17 @@ class Airport
 
   def land(plane, airspace)
     airport_full_check
+    weather_check
     accept(plane)
     airspace.release(plane)
     plane.land!
   end
 
-  def land_with_weather_check(plane, airspace)
-    weather_check
-    land(plane, airspace)
-  end
-
   def launch(plane, airspace)
+    weather_check
     airspace.accept(plane)
     release(plane)
     plane.fly! 
   end
   
-  def launch_with_weather_check(plane, airspace)
-    weather_check
-    launch(plane, airspace)
-  end
-
 end
