@@ -35,7 +35,7 @@ describe Airport do
   context 'traffic control' do
 
     it 'a plane cannot land if the airport is full' do
-      5.times{ airport_sunny.accept(Plane.new) }
+      6.times{ airport_sunny.accept(Plane.new) }
       expect(lambda { airport_sunny.land(plane, airspace) }).to raise_error(RuntimeError, 'Plane cannot land: Airport Full')
     end
 
@@ -52,7 +52,7 @@ describe Airport do
       expect(airport_stormy.number_planes).to eq(1)
     end
 
-    it 'should not all a plane to land when there is stormy weather' do
+    it 'should not allow a plane to land when there is stormy weather' do
       airspace.accept(plane)
       allow(airport_stormy).to receive(:weather_condition).and_return(:stormy)
       expect(lambda {airport_stormy.land(plane, airspace)}).to raise_error(RuntimeError, 'Cannot complete action: Stormy Weather')

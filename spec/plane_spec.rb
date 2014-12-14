@@ -4,6 +4,8 @@
 #
 # When the plane takes of from the airport, the plane's status should become "flying"
 
+# Not happy with these tests - they're covered in airport tests and anything less seems too simplistic
+
 require 'plane'
 
 describe Plane do 
@@ -22,32 +24,3 @@ describe Plane do
 
 end
  
-
-  # it 'should be able to take off' do
-  #   expect(plane).not_to be_flying
-  #   expect(plane).to be_flying
-  # end
-
-  # it 'should change its status to flying after taking off' do
-  #   expect(airspace.planes(plane)).to be_flying
-  # end
-
-  
-
-
-
-
-
-
-
-
-  # it 'should be able to land' do
-  #   expect(airport.planes(plane)).to be_landed
-  #   expect(airport.planes).to include(plane)
-  # end
-
-
-  # it "should be at the back of the queue if refused permission to land" do
-  #   expect(airspace.planes[last_in_array]).to eq(plane)
-  #   expect(plane[:landing_attempts]).to eq(1)
-  # end

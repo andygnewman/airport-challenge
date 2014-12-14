@@ -6,9 +6,9 @@ class Airport
   include WeatherStation
   include PlaneContainer
 
-    def initialize
-      @capacity = 5
-    end
+  def initialize
+    @capacity = 6
+  end
 
   def capacity
     @capacity
