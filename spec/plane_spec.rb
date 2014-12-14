@@ -1,26 +1,47 @@
-# When we create a new plane, it should have a "flying" status, thus planes can not be created in the airport.
-#
-# When we land a plane at the airport, the plane in question should have its status changed to "landed"
-#
-# When the plane takes of from the airport, the plane's status should become "flying"
-
-# Not happy with these tests - they're covered in airport tests and anything less seems too simplistic
 
 require 'plane'
 
-describe Plane do 
-  
+
+describe Plane do
+
   let(:plane) { Plane.new }
+  let(:sunny_airport) { Airport.new }
+  let(:airspace) { Airspace.new }
 
-  it 'should have a status of flying when created' do
-    expect(plane).to be_flying
-  end
-
-  it 'should have a flying status when in the air' do
+  def plane_in_airport(plane)
     plane.land!
-    plane.fly!
+    sunny_airport.accept(plane)
+  end
+
+  it 'has a flying status when created' do
     expect(plane).to be_flying
   end
 
-end
- 
+  it 'has a flying status when in the air' do
+    airspace.accept(plane)
+    expect(plane).to be_flying
+  end
+
+  it 'has a landed status when in the airport' do
+    airspace.accept(plane)
+    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
+    sunny_airport.land(plane, airspace)
+    expect(plane).not_to be_flying
+  end
+
+  it 'should move from airport to airspace on take off' do
+    plane_in_airport(plane)
+    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
+    expect(sunny_airport.number_planes).to eq(1)
+    sunny_airport.launch(plane, airspace)
+    expect(sunny_airport.number_planes).to eq(0)
+    expect(airspace.number_planes).to eq(1)
+  end
+
+  it 'changes its status to flying after taking of' do
+    plane_in_airport(plane)
+    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
+    sunny_airport.launch(plane, airspace)
+    expect(plane).to be_flying
+  end
+end 
