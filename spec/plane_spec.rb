@@ -6,6 +6,7 @@ describe Plane do
 
   let(:plane) { Plane.new }
   let(:sunny_airport) { Airport.new }
+  before { allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)}
   let(:airspace) { Airspace.new }
 
   def plane_in_airport(plane)
@@ -24,14 +25,12 @@ describe Plane do
 
   it 'has a landed status when in the airport' do
     airspace.accept(plane)
-    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
     sunny_airport.land(plane, airspace)
     expect(plane).not_to be_flying
   end
 
   it 'should move from airport to airspace on take off' do
     plane_in_airport(plane)
-    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
     expect(sunny_airport.number_planes).to eq(1)
     sunny_airport.launch(plane, airspace)
     expect(sunny_airport.number_planes).to eq(0)
@@ -40,7 +39,6 @@ describe Plane do
 
   it 'changes its status to flying after taking of' do
     plane_in_airport(plane)
-    allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)
     sunny_airport.launch(plane, airspace)
     expect(plane).to be_flying
   end
