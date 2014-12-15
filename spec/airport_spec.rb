@@ -11,7 +11,6 @@ describe Airport do
 
   context 'taking off and landing' do
 
-  
     it 'can land a plane' do
       airspace.accept(plane)
       airport_sunny.land(plane, airspace)
