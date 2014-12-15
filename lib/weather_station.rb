@@ -1,6 +1,6 @@
 module WeatherStation
 
-WEATHER = [:sunny] #, :stormy
+WEATHER = [:sunny, :stormy] 
 
   def weather
       @weather = WEATHER

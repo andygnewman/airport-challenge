@@ -45,7 +45,7 @@ describe Airport do
 
   end
 
-  context 'mulitple airports' do
+  context 'multiple airports' do
     
     it 'should not allow a plane to take off if plane is not at the airport' do
       expect( lambda{airport_sunny.launch(plane_dble)}).to raise_error(RuntimeError, 'Cannot launch: plane not at airport')
