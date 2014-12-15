@@ -8,16 +8,16 @@
 ###Plane
 Responsibility | Collaborators
 ---------------|----------------
-Be Flown       | Holding Stack
+Be Flown       | Airspace
 Be Landed      | Airport, Airspace
 Take Off       | Airport, Airspace
 
 ###Airspace
-Responsibility          | Collaborators
-------------------------|----------------
-Fly Plane               | Plane
-Land Plane              | Plane, Airport
-Accept Plane on Take Off| Plane, Airport 
+Responsibility         | Collaborators
+-----------------------|----------------
+Fly Plane              | Plane
+Land Plane             | Plane, Airport
+Accept Plane on Launch | Plane, Airport 
 
 ###Airport
 Responsibility | Collaborators
