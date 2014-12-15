@@ -18,25 +18,32 @@ class Airport
     number_planes == @capacity
   end
 
-  def airport_full_check
+  def plane_at_airport?(plane)
+    planes.include?(plane)
+  end
+
+  def check_airport_full
     raise "Plane cannot land: Airport Full" if full? 
   end  
 
-  def weather_check
+  def check_plane_at_airport(plane)
+    raise "Cannot launch: plane not at airport" if !plane_at_airport?(plane)
+  end
+
+  def check_weather
     raise "Cannot complete action: Stormy Weather" if stormy_weather?
   end
 
-  def land(plane, airspace)
-    airport_full_check
-    weather_check
+  def land(plane)
+    check_airport_full
+    check_weather
     accept(plane)
-    airspace.release(plane)
     plane.land!
   end
 
-  def launch(plane, airspace)
-    weather_check
-    airspace.accept(plane)
+  def launch(plane)
+    check_plane_at_airport(plane)
+    check_weather
     release(plane)
     plane.fly! 
   end
