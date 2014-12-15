@@ -6,8 +6,6 @@ describe Plane do
   let(:plane) {Plane.new}
   let(:sunny_airport) { Airport.new }
   before { allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)}
-  # before { sunny_airport.stub(:weather_condition) {:sunny} }
-  # before { sunny_airport(:weather_condition => :sunny)}
   let(:airspace) { Airspace.new }
 
   def plane_in_airport(plane)
