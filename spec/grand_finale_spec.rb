@@ -4,9 +4,10 @@ require 'airspace'
 
 describe "The grand finale (last spec)" do
 
-  let(:sunny_airport) {Airport.new}
+  let(:sunny_airport) {Airport.new} #{double :airport, weather_condition: :sunny}
   before {allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)}
   let(:airspace) {Airspace.new}
+  let(:fleet) { Array.new(6) { Plane.new } }
 
   it 'should allow all planes to land and all planes to take off' do
     6.times {airspace.accept(Plane.new)}
@@ -26,4 +27,8 @@ describe "The grand finale (last spec)" do
     end
   end
 
+  # xit 'should allow 6 planes to land and to then take off' do
+  #   use fleet concept... 
+  # end
+   
 end
