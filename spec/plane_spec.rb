@@ -3,8 +3,7 @@ require 'plane'
 
 
 describe Plane do
-
-  let(:plane) { Plane.new }
+  let(:plane) {Plane.new}
   let(:sunny_airport) { Airport.new }
   before { allow(sunny_airport).to receive(:weather_condition).and_return(:sunny)}
   let(:airspace) { Airspace.new }
